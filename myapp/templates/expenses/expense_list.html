@@ -1,0 +1,36 @@
+{% extends 'expenses/base.html' %}
+{% block content %}
+<h2 class="mb-4">My Expenses</h2>
+
+<a href="{% url 'expense_create' %}" class="btn btn-success mb-3">➕ Add Expense</a>
+
+<table class="table table-bordered table-hover">
+  <thead class="table-light">
+    <tr>
+      <th>Title</th>
+      <th>Amount</th>
+      <th>Category</th>
+      <th>Date</th>
+      <th>Notes</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for expense in expenses %}
+    <tr>
+      <td>{{ expense.title }}</td>
+      <td>${{ expense.amount }}</td>
+      <td><span class="badge bg-secondary">{{ expense.get_category_display }}</span></td>
+      <td>{{ expense.date }}</td>
+      <td>{{ expense.notes|default:"-" }}</td>
+      <td>
+        <a href="{% url 'expense_edit' expense.pk %}" class="btn btn-sm btn-primary">Edit</a>
+        <a href="{% url 'expense_delete' expense.pk %}" class="btn btn-sm btn-danger">Delete</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="6">No expenses found.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

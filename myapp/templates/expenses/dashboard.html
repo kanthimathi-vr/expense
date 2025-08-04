@@ -1,0 +1,37 @@
+{% extends 'expenses/base.html' %}
+{% block content %}
+<h2 class="mb-4">Dashboard</h2>
+
+<div class="row mb-4">
+  <div class="col-md-6">
+    <div class="card text-white bg-success mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Total Spent This Month</h5>
+        <p class="card-text fs-3">${{ total_spent }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h4>Category Breakdown</h4>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in category_breakdown %}
+    <tr>
+      <td>
+        <span class="badge bg-info text-dark">{{ item.category|title }}</span>
+      </td>
+      <td>${{ item.total }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="2">No expenses this month.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
